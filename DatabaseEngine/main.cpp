@@ -1,20 +1,32 @@
-// DatabaseEngine.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// .cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
+#include <string>
 
+// 'draws' input symbol for the user
+inline void input_prompt() { std::cout << " > "; }
+inline void read_input(std::string &input_buf) {
+	std::getline(std::cin, input_buf);
+}
+// main starts infinite input await loop.
 int main()
 {
-    std::cout << "Hello World!\n";
+	try {
+		std::string input;
+		while (true) {
+			input_prompt();
+			read_input(input);
+			if (input == "/quit") {
+				std::cout << "[shutting down...]" << std::endl;
+				return 0;
+			}
+			else {
+				std::cout << "Unknown command: " + input << std::endl;
+			}
+		}
+	}
+	catch (...) {
+		std::cout << "unknown exception occured"  << std::endl;
+	}
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
