@@ -18,12 +18,24 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="user_interface.cpp">
+    <ClCompile Include="sql_compiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shell_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="avm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="user_interface.h">
+    <ClInclude Include="sql_compiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shell_controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="avm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

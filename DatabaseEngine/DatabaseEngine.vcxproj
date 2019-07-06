@@ -151,11 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="avm.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="user_interface.cpp" />
+    <ClCompile Include="sql_compiler.cpp" />
+    <ClCompile Include="shell_controller.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="user_interface.h" />
+    <ClInclude Include="avm.h" />
+    <ClInclude Include="sql_compiler.h" />
+    <ClInclude Include="shell_controller.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
