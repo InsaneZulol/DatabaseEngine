@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "avm.h"
 #include "shell_controller.h"
+#include "sql_compiler.h"
 
 
 // main starts infinite input await loop.

@@ -1,14 +1,6 @@
 #pragma once
 #include <string>
-
-enum StatementType {
-	statement_insert,
-	statement_select
-};
-
-struct Statement {
-	StatementType type;
-};
+#include "avm.h"
 
 enum PrepareResult {
 	prepare_success,
@@ -18,7 +10,5 @@ enum PrepareResult {
 class SqlCompiler {
 public:
 	PrepareResult prepare_statement(std::string& input_buffer, Statement* statement);
-
-	~SqlCompiler();
 };
 
