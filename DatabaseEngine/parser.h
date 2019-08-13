@@ -1,25 +1,15 @@
 #pragma once
 #include <string>
-#include <variant>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
+#include "table_structure.h"
 
-namespace table
-{
-	inline struct table_row
-	{
-		int id;
-		std::string name;
-		std::string email;
-	} row; // row is a global variable in table namespace.
-}
-
-// We need to tell fusion about our employee struct
+// We need to tell fusion about our table_row struct
 // to make it a first-class fusion citizen. This has to
 // be in global scope.
 BOOST_FUSION_ADAPT_STRUCT(
 	table::table_row,
-	(int, id)
+	(uint32_t, id)
 	(std::string, name)
 	(std::string, email)
 )

@@ -5,7 +5,7 @@
 enum PrepareResult {
 	prepare_success,
 	prepare_unrecognized_statement,
-	prepare_bad_syntax
+	prepare_syntax_error
 };
 
 class SqlCompiler {

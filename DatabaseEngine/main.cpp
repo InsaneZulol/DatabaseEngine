@@ -5,7 +5,7 @@
 #include <string>
 #include "shell_controller.h"
 #include "sql_compiler.h"
-
+#include "table_structure.h"
 
 // main starts infinite input await loop.
 int main()
@@ -14,6 +14,7 @@ int main()
 		ShellController shell;
 		SqlCompiler compiler;
 		Avm vm;
+		auto table = new table::Table();
 		while (true) {
 			shell.input_prompt();
 			shell.input_get();
@@ -21,7 +22,7 @@ int main()
 			if (shell.input.front() == '/') {
 				switch(shell.exec_command(shell.input)) {
 					case (command_success):
-						continue;
+						break;
 					case (command_unrecognized):
 						std::cout << "Unrecognized command " + shell.input << std::endl;
 						continue;
@@ -29,17 +30,27 @@ int main()
 						return 0;
 				}
 			}
-			// here we handle a ASQL statement.
+			// handle a ASQL statement; first parse the input.
 			Statement statement;
 			switch (compiler.prepare_statement(shell.input, &statement)) {
 			case (prepare_success):
 				break;
+			case (prepare_syntax_error):
+				std::cout << "Syntax error. Could not parse statement." << std::endl;
+				continue;
 			case (prepare_unrecognized_statement):
 				std::cout << "Unrecognized statement at start of " + shell.input << std::endl;
 				continue;
 			}
-			vm.execute_statement(&statement);
-			std::cout << "Executed statement." << std::endl;
+			// passing the statement to VM for it to be executed.
+			switch (vm.execute_statement(&statement, table)) {
+			case(EXECUTE_SUCCESS):
+				std::cout << "Executed statement." << std::endl;
+				break;
+			case(EXECUTE_TABLE_FULL):
+				std::cout << "Error. Table full." << std::endl;
+				break;
+			}
 		}
 	}
 	catch (...) {
