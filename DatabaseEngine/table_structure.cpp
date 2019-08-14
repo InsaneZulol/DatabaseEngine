@@ -1,8 +1,10 @@
 #include "table_structure.h"
+#include <iostream>
 
 namespace table
 {
 
+	// encapsulate in Table?
 	bool save_row(Table* table, const std::string& new_row) {
 		for (auto page = table->pages.begin(); page != table->pages.end(); ++page) {
 			const size_t this_page_size = page->size() * sizeof(data_page);
@@ -25,22 +27,19 @@ namespace table
 		}
 	}
 
-	void serialize_row(table_row* new_row, Table* table) {
+	const std::string table_row::serialize_row() {
 		std::stringstream ss; // napewno tutaj?
-
 		boost::archive::text_oarchive oa(ss);
-		oa << new_row;
-		const std::string serialized_row = ss.str(); // this is the new serialized row.
-		// save in memory. todo: MOVE IT OUT OF THIS?.
-		bool res = save_row(table, serialized_row);
+		oa << this;
+		const std::string serialized_row = ss.str();
+		return serialized_row;
 	}
-	// takes in serialized data(string), spits out C++ row object
-	void deserialize_row(std::string serialized_row, table_row* destination) {
-		std::stringstream ss; // napewno tutaj?
 
-		boost::archive::text_iarchive ia(ss); // to error :( przenieœ ss poza funkcjê
-		ss << serialized_row;
-		ia >> destination;
+	const table_row* table_row::deserialize_row(std::string src_serialized_row) {
+		std::stringstream ss(src_serialized_row);
+		boost::archive::text_iarchive ia(ss);
+		ia >> *this;
+		return this;
 	}
 
 	void print_row(table_row* row) {

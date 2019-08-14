@@ -53,7 +53,7 @@ int main()
 			}
 		}
 	}
-	catch (...) {
-		std::cout << "unknown exception occured" << std::endl;
+	catch (std::exception& e) {
+		std::cout << "exception occured: " << e.what() << std::endl;
 	}
 }
