@@ -8,7 +8,7 @@
 // to make it a first-class fusion citizen. This has to
 // be in global scope.
 BOOST_FUSION_ADAPT_STRUCT(
-	table::table_row,
+	table::TableRow,
 	(uint32_t, id)
 	(std::string, name)
 	(std::string, email)
@@ -24,7 +24,7 @@ namespace parser
 	// https://stackoverflow.com/questions/42811884/boostspirit-struggle-with-parsing-a-string
 	//
 	template <typename Iterator>
-	struct insert_grammar : qi::grammar<Iterator, table::table_row(), ascii::space_type>
+	struct insert_grammar : qi::grammar<Iterator, table::TableRow(), ascii::space_type>
 	{
 		insert_grammar() : insert_grammar::base_type(start_)
 		{
@@ -53,6 +53,6 @@ namespace parser
 	private:
 		qi::rule<Iterator, std::string(), ascii::space_type> name_;
 		qi::rule<Iterator, std::string(), ascii::space_type> email_;
-		qi::rule<Iterator, table::table_row(), ascii::space_type> start_;
+		qi::rule<Iterator, table::TableRow(), ascii::space_type> start_;
 	};
 }

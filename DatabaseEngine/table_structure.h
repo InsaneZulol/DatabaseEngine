@@ -25,17 +25,21 @@ namespace table
 
 	struct Table {
 		uint32_t num_rows;
-		// fixed-size array of pages
 		std::array<data_page, TABLE_MAX_PAGES> pages;
+		// function to save row in memory
+		// Returns true if save was succesful. Returns false if save was unsuccesful,
+		// i.e. all pages are full.
+		bool save_row(const std::string& new_row);
 	};
-	struct table_row {
+	struct TableRow {
 		uint32_t id = 0;
 		std::string name;
 		std::string email;
 		// serialize row to portable text-data and then save it data into destination Table
 		const std::string serialize_row();
 		// deserialize row from portable text-data to C++ object. Returns pointer to table_row.
-		const table_row* deserialize_row(std::string serialized_row);
+		TableRow* deserialize_row(const std::string& src_serialized_row);
+		
 	private:
 		friend class boost::serialization::access;
 
@@ -49,10 +53,5 @@ namespace table
 	};
 
 
-	// function to save row in memory
-	// Returns true if save was succesful. Returns false if save was unsuccesful,
-	// i.e. all pages are full.
-	bool save_row(Table* table, const std::string& new_row);
-	// takes in serialized data(string), spits out C++ row object
-	void print_row(table_row* row);
+
 }

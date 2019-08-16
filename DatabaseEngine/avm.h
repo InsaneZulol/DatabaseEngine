@@ -13,13 +13,13 @@ enum ExecuteResult {
 
 struct Statement {
 	StatementType type;
-	table::table_row new_row_to_insert; // just for insert. The new single row(id, name, email) we will insert into Table.
+	table::TableRow new_row_to_insert; // just for insert. The new single row(id, name, email) we will insert into Table.
 };
 
 // our VM, it the executes byte code compiled from SQL
 class Avm {
 public:
-	ExecuteResult execute_statement(Statement* statement, table::Table*);
+	ExecuteResult execute_statement(Statement* statement, table::Table* table);
 	ExecuteResult execute_insert(Statement* statement, table::Table* table);
 	// select just prints out the content
 	ExecuteResult execute_select(Statement* statement, table::Table* table);
