@@ -5,7 +5,7 @@
 #include <string>
 #include "shell_controller.h"
 #include "sql_compiler.h"
-#include "table_structure.h"
+#include "data_structure.h"
 
 // main starts infinite input await loop.
 int main()

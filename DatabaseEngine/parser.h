@@ -2,7 +2,6 @@
 #include <string>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/include/adapt_struct.hpp>
-#include "table_structure.h"
 
 // We need to tell fusion about our table_row struct
 // to make it a first-class fusion citizen. This has to

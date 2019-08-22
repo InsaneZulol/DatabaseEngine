@@ -6,7 +6,6 @@ namespace table
 	// on each page i will let it allocate max of 32 rows each approx. 100bytes in size = 3200B
 	// so each page should be of size 3200+sizeof(page)?
 	// i should try to get it to round 4096B so windows can move them in complete pages but fuck it for now
-	// if num rows ++32, increase on next page.
 	MemSaveRowResult Table::save_row(const std::string& new_row) {
 		for (auto page = this->pages.begin(); page != this->pages.end(); ++page) {
 			// if there is enough space then save row on this page
