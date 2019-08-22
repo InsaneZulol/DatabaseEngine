@@ -44,10 +44,10 @@ int main()
 			}
 			// passing the statement to VM for it to be executed.
 			switch (vm.execute_statement(&statement, table)) {
-			case(EXECUTE_SUCCESS):
+			case(execute_success):
 				std::cout << "Executed statement." << std::endl;
 				break;
-			case(EXECUTE_TABLE_FULL):
+			case(execute_table_full):
 				std::cout << "Error. Table full." << std::endl;
 				break;
 			}

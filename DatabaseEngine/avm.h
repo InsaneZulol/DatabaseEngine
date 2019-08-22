@@ -1,5 +1,5 @@
 #pragma once
-#include "table_structure.h"
+#include "data_structure.h"
 // VM instruction set
 enum StatementType {
 	statement_insert,
@@ -7,8 +7,8 @@ enum StatementType {
 };
 
 enum ExecuteResult { 
-	EXECUTE_SUCCESS,
-	EXECUTE_TABLE_FULL 
+	execute_success,
+	execute_table_full 
 };
 
 struct Statement {

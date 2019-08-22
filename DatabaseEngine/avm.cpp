@@ -2,17 +2,21 @@
 #include "avm.h"
 
 ExecuteResult Avm::execute_insert(Statement* statement, table::Table* table) {
-	if (table->num_rows >= 2000) { // arbitrary magic number
-		return EXECUTE_TABLE_FULL;
+	if (table->num_rows >= table::TABLE_MAX_ROWS) { // arbitrary number
+		return execute_table_full;
 	}
 	table::TableRow* row_to_insert = &(statement->new_row_to_insert);
 	const std::string serialized_row_to_insert = row_to_insert->serialize_row();
 	// save to compact representation in memory
-	bool res = table->save_row(serialized_row_to_insert);
-	// todo check save_row result
-	table->num_rows += 1;
-	
-	return EXECUTE_SUCCESS;
+
+	table::MemSaveRowResult save_result = table->save_row(serialized_row_to_insert);
+	if (save_result == table::MemSaveRowResult::memsave_success) {
+		table->num_rows += 1;
+		return execute_success;
+	}
+	else {
+		return execute_table_full;
+	}
 }
 
 
@@ -27,7 +31,7 @@ ExecuteResult Avm::execute_select(Statement* statement, table::Table* table) {
 			std::cout << '(' << row_ptr->id << ", " << row_ptr->name << ", " << row_ptr->email << ')' << std::endl;
 		}
 	}
-	return EXECUTE_SUCCESS;
+	return execute_success;
 }
 
 ExecuteResult Avm::execute_statement(Statement* statement, table::Table* table) {

@@ -1,26 +1,18 @@
-#include "table_structure.h"
+#include "data_structure.h"
+#include <iostream>
 
 namespace table
 {
-	// encapsulate in Table?
-	bool Table::save_row(const std::string& new_row) {
+	// on each page i will let it allocate max of 32 rows each approx. 100bytes in size = 3200B
+	// so each page should be of size 3200+sizeof(page)?
+	// i should try to get it to round 4096B so windows can move them in complete pages but fuck it for now
+	// if num rows ++32, increase on next page.
+	MemSaveRowResult Table::save_row(const std::string& new_row) {
 		for (auto page = this->pages.begin(); page != this->pages.end(); ++page) {
-			const size_t this_page_size = page->size() * sizeof(data_page);
-			const size_t free_space = MAX_PAGE_SIZE - this_page_size;
-
-			if (free_space >= new_row.size()) {
+			// if there is enough space then save row on this page
+			if (page->size() < ROWS_PER_PAGE) {
 				page->push_back(new_row);
-				return true;
-			}
-			// if we are at last page check if we can fit here. If not, then return false.
-			if (page == this->pages.end() - 1) {
-				if (free_space >= new_row.size()) {
-					page->push_back(new_row);
-					return true;
-				}
-				else {
-					return false;
-				}
+				return memsave_success;
 			}
 		}
 	}

@@ -11,9 +11,9 @@ using boost::spirit::ascii::space;
 PrepareResult SqlCompiler::prepare_statement(std::string& input_buffer, Statement* statement) {
 	if(input_buffer.compare(0, 6, "insert") == 0) {
 		statement->type = statement_insert;
-		// parse
+		// parse input
 		typedef parser::insert_grammar<std::string::const_iterator> insert_parser;
-		const insert_parser g; // Our grammar
+		const insert_parser g; // grammar
 		const std::string::const_iterator b = input_buffer.begin();
 		const std::string::const_iterator e = input_buffer.end();
 		const auto r = phrase_parse(b, e, g, space, statement->new_row_to_insert);

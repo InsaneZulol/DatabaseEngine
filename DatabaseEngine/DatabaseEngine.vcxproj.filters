@@ -27,7 +27,7 @@
     <ClCompile Include="avm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="table_structure.cpp">
+    <ClCompile Include="data_structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,7 +44,7 @@
     <ClInclude Include="parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="table_structure.h">
+    <ClInclude Include="data_structure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
