@@ -7,14 +7,17 @@
 #include "sql_compiler.h"
 #include "data_structure.h"
 
-// main starts infinite input await loop.
+
 int main()
 {
+	std::string filename = "dbfile.db";
+
 	try {
 		ShellController shell;
 		SqlCompiler compiler;
 		Avm vm;
-		auto table = new table::Table();
+		//auto table = new table::Table(filename);
+		auto table = std::make_unique<table::Table>(filename);
 		while (true) {
 			shell.input_prompt();
 			shell.input_get();
@@ -27,6 +30,7 @@ int main()
 						std::cout << "Unrecognized command " + shell.input << std::endl;
 						continue;
 					case (command_shutdown):
+						table->pager->db_close();
 						return 0;
 				}
 			}
@@ -43,7 +47,7 @@ int main()
 				continue;
 			}
 			// passing the statement to VM for it to be executed.
-			switch (vm.execute_statement(&statement, table)) {
+			switch (vm.execute_statement(&statement, table.get())) {
 			case(execute_success):
 				std::cout << "Executed statement." << std::endl;
 				break;

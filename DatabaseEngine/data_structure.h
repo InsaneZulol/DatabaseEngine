@@ -1,12 +1,13 @@
 #pragma once
 #include <cstdint>
-#include <array>
 #include <vector>
 #include <string>
 #include <sstream>
+#include <iostream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/string.hpp>
+#include "pager.h"
 
 // this is temporary 'fake' table. TODO: replace with b-tree
 	// Saving data to DB:
@@ -16,25 +17,21 @@
 	// Each Table consists of pages
 	// Each page consists of rows
 	// Each row consists of portable ascii data
-namespace table
-{
-	enum MemSaveRowResult {
+namespace table {
+	enum CacheRowResult {
 		memsave_success,
 		memsave_error_full
 	};
 
-	constexpr auto ROWS_PER_PAGE = 32;
-	constexpr auto TABLE_MAX_PAGES = 100;
-	constexpr auto TABLE_MAX_ROWS = TABLE_MAX_PAGES * ROWS_PER_PAGE;
-	using data_page = std::vector<std::string>;
-
+	// 
+	// The Table object makes requests for pages through the pager.
 	struct Table {
+		Table(std::string filename);
+
 		uint32_t num_rows;
-		std::array<data_page, TABLE_MAX_PAGES> pages;
+		std::unique_ptr<Pager> pager;
 		// function to save row in memory
-		// Returns true if save was succesful. Returns false if save was unsuccesful,
-		// i.e. all pages are full.
-		MemSaveRowResult save_row(const std::string& new_row);
+		CacheRowResult cache_row(const std::string& new_row);
 	};
 
 	struct TableRow {

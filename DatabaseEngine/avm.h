@@ -1,5 +1,6 @@
 #pragma once
 #include "data_structure.h"
+
 // VM instruction set
 enum StatementType {
 	statement_insert,
@@ -21,6 +22,5 @@ class Avm {
 public:
 	ExecuteResult execute_statement(Statement* statement, table::Table* table);
 	ExecuteResult execute_insert(Statement* statement, table::Table* table);
-	// select just prints out the content
 	ExecuteResult execute_select(Statement* statement, table::Table* table);
 };

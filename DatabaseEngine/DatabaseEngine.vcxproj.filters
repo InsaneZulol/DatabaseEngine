@@ -30,6 +30,9 @@
     <ClCompile Include="data_structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sql_compiler.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="data_structure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
